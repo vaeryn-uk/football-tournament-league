@@ -1,3 +1,6 @@
 .env
 .idea
 __pycache__/
+assets/built/*
+yarn-error.log
+node_modules

@@ -47,3 +47,14 @@ services:
       ME_CONFIG_MONGODB_SERVER: mongo
     depends_on:
       - mongo
+
+  assets-builder:
+    build:
+      context: .
+      dockerfile: docker/node/Dockerfile
+      args:
+        UID: ${USERID}
+    volumes:
+      - .:/app
+    working_dir: /app
+

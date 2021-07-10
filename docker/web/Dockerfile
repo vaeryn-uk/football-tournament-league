@@ -3,13 +3,13 @@ FROM python:alpine
 
 RUN apk add build-base
 
+
+# Do not buffer python output. Allows for real-time container logs.
+ENV PYTHONUNBUFFERED=1
 # Create a user mirroring the host user.
 ARG UID
 RUN adduser -u $UID -D dev
 USER $UID
-
-# Do not buffer python output. Allows for real-time container logs.
-ENV PYTHONUNBUFFERED=1
 
 RUN pip install pip-tools
 

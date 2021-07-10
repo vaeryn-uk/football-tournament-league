@@ -2,13 +2,22 @@ USERID=$$(id -u)
 RANDOMPASSWORD = $$(tr -cd '[:alnum:]' < /dev/urandom | fold -w30 | head -n1)
 
 .PHONY: build
-build: .env
+build: .env assets
 	docker-compose build
 	docker-compose run --rm web python manage.py migrate
 
 .PHONY: up
 up: build
 	docker-compose up
+
+.PHONY: assets
+assets: assets-builder
+	docker-compose run --rm assets-builder node assets.build.js
+
+.PHONY: assets-builder
+assets-builder:
+	docker-compose build assets-builder
+	docker-compose run --rm assets-builder sh -c 'yarn install'
 
 # Creates a Django admin superuser.
 .PHONY: adminuser
