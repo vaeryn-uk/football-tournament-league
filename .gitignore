@@ -4,3 +4,4 @@ __pycache__/
 assets/built/*
 yarn-error.log
 node_modules
+.migrate
