@@ -1,5 +1,5 @@
-from django.test import TestCase
+from django.test import TestCase, Client
 
 class IndexTestCase(TestCase):
-    def test_true(self):
-        self.assertTrue(False, "This is true")
+    def test_has_index(self):
+        self.assertContains(Client().get('/'), 'Python Practice')
