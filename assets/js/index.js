@@ -1,0 +1,2 @@
+
+import '../css/cover.css';

@@ -11,7 +11,10 @@ up: .migrate .env
 test: .env
 	docker-compose run --rm web python manage.py test
 
-assets/built/app.js: makeflags/node_modules $(ASSET_FILES) .env
+.PHONY assets:
+assets: assets/built/app.js
+
+assets/built/app.js: node_modules $(ASSET_FILES) .env assets.build.js
 	docker-compose run --rm assets-builder node assets.build.js
 
 node_modules: yarn.lock package.json .env
@@ -24,7 +27,7 @@ adminuser: .migrate .env
 	docker-compose run --rm web python manage.py createadminuser
 
 # Generates new migrations after making model changes.
-# Remember to run `make build` once you are happy with your migrations to apply them.
+# Remember to run `make migrate` once you are happy with your migrations to apply them.
 .PHONY: migrations
 migrations: .env
 	docker-compose run --rm web python manage.py makemigrations

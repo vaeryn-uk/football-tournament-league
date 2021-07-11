@@ -26,6 +26,7 @@ services:
       - "${WEB_APP_PORT}:8000"
     depends_on:
       - mongo
+      - mongo-ui
 
   mongo:
     image: mongo
@@ -36,7 +37,7 @@ services:
     volumes:
       - "mongo_db_data:/data/db"
 
-  mongo-express:
+  mongo-ui:
     image: mongo-express
     restart: always
     ports:
